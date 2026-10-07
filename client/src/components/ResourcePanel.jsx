@@ -529,7 +529,13 @@ export default function ResourcePanel({
                 label={section === "gallery" ? "Caption" : "Category"}
                 name="meta"
               />
-              <Field label="File">
+              <Field
+                label={
+                  section === "gallery"
+                    ? "Choose photo from gallery or device"
+                    : "File"
+                }
+              >
                 <input
                   name="file"
                   type="file"
@@ -542,7 +548,9 @@ export default function ResourcePanel({
                 />
               </Field>
               <small className="muted">
-                Up to 8 MB. Files are visible to every trip member.
+                {section === "gallery"
+                  ? "Select a photo from your phone gallery or computer. JPG, PNG or WEBP, up to 8 MB per photo. Photos are visible to every trip member."
+                  : "Up to 8 MB. Files are visible to every trip member."}
               </small>
               {uploading > 0 && <progress max={100} value={uploading} />}
               <div className="form-actions">
