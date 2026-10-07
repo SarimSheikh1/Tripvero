@@ -1,3 +1,5 @@
+import { setLanguage } from "../services/language";
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { UserRound, Save, LogOut, Upload } from "lucide-react";
@@ -45,6 +47,7 @@ export function Profile() {
             setUser(r.data);
             document.documentElement.dataset.theme = form.settings.theme;
             localStorage.setItem("tripvero-theme", form.settings.theme);
+            setLanguage(form.language);
             toast.success("Profile updated");
           } catch (e) {
             notifyError(e);
@@ -119,8 +122,7 @@ export function Profile() {
             name="language"
             options={[
               { value: "en", label: "English" },
-              { value: "ur", label: "Urdu" },
-              { value: "ar", label: "Arabic" },
+              { value: "roman-ur", label: "Roman Urdu" },
             ]}
             value={form.language || "en"}
             onChange={change}
@@ -138,8 +140,7 @@ export function Profile() {
           />
         </div>
         <small className="muted">
-          Language is saved as a preference. The current interface is in
-          English.
+          Choose English or Roman Urdu for the main screens and controls.
         </small>
         <Toggle
           label="Receive in-app trip notifications"
@@ -294,7 +295,7 @@ export function Join() {
               className="btn"
               to={`/login?next=${encodeURIComponent(`/join?code=${code}`)}`}
             >
-              Sign in
+              {t("Sign in")}
             </Link>
             <Link
               className="btn secondary"

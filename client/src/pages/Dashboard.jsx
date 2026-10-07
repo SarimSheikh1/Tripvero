@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -68,7 +69,7 @@ export default function Dashboard({ tripsOnly = false }) {
       <Empty
         title="We couldn’t load your trips."
         text={error}
-        action={<Button onClick={load}>Try again</Button>}
+        action={<Button onClick={load}>{t("Try again")}</Button>}
       />
     );
   if (!trips) return <Loading />;
@@ -90,23 +91,27 @@ export default function Dashboard({ tripsOnly = false }) {
     <>
       <div className="page-heading">
         <div>
-          <h1>{tripsOnly ? "My trips" : `Hi ${user.name.split(" ")[0]}`}</h1>
-          <p>Create a trip, invite friends and track expenses.</p>
+          <h1>
+            {tripsOnly
+              ? t("My trips")
+              : `${t("Hello")} ${user.name.split(" ")[0]}`}
+          </h1>
+          <p>{t("Create a trip, invite friends and track expenses.")}</p>
         </div>
         <div className="actions">
           <Button className="secondary" onClick={() => setJoin(true)}>
-            Join a trip
+            {t("Join a trip")}
           </Button>
           <Button onClick={() => setCreate(true)}>
             <Plus size={18} />
-            New trip
+            {t("New trip")}
           </Button>
         </div>
       </div>
       {!tripsOnly && (
         <>
           <div className="summary-label">
-            <span>Your travel overview</span>
+            <span>{t("Your travel overview")}</span>
             <select
               aria-label="Summary currency"
               value={currency}
@@ -116,7 +121,7 @@ export default function Dashboard({ tripsOnly = false }) {
                 <option key={c}>{c}</option>
               ))}
             </select>
-            <small>Amounts grouped by currency</small>
+            <small>{t("Amounts grouped by currency")}</small>
           </div>
           <div className="stats-grid four">
             <Stat
@@ -147,7 +152,8 @@ export default function Dashboard({ tripsOnly = false }) {
       )}
       <div className="section-bar">
         <h2>
-          Your trips <span className="count">{visible.length}</span>
+          {t("Your trips")}
+          <span className="count">{visible.length}</span>
         </h2>
         <div className="actions">
           <input
@@ -162,8 +168,8 @@ export default function Dashboard({ tripsOnly = false }) {
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option value="active">Active trips</option>
-            <option value="archived">Archived trips</option>
+            <option value="active">{t("Active trips")}</option>
+            <option value="archived">{t("Archived trips")}</option>
           </select>
         </div>
       </div>

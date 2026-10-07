@@ -578,6 +578,35 @@ test("trip hotel choices are isolated, validated, voted and protected", async ()
   assert.equal((await call(owner, "delete", `${base}/${id}`)).status, 200);
 });
 
+test("language preference is authenticated, validated and persisted", async () => {
+  assert.equal(
+    (
+      await call(request.agent(app), "patch", "/api/users/me/language", {
+        language: "roman-ur",
+      })
+    ).status,
+    401,
+  );
+  assert.equal(
+    (await call(owner, "patch", "/api/users/me/language", { language: "bad" }))
+      .status,
+    400,
+  );
+  assert.equal(
+    (
+      await call(owner, "patch", "/api/users/me/language", {
+        language: "roman-ur",
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await call(owner, "get", "/api/auth/me")).body.language,
+    "roman-ur",
+  );
+  await call(owner, "patch", "/api/users/me/language", { language: "en" });
+});
+
 test("delete expense, preserve financial members and confirmed trip deletion", async () => {
   assert.equal(
     (

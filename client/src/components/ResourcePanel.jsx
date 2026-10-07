@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import {
   Plus,
@@ -275,7 +276,7 @@ export default function ResourcePanel({
       <Empty
         title="Unable to load this section"
         text={error}
-        action={<Button onClick={load}>Try again</Button>}
+        action={<Button onClick={load}>{t("Try again")}</Button>}
       />
     );
   if (!items) return <Loading />;
@@ -556,7 +557,7 @@ export default function ResourcePanel({
               <div className="form-actions">
                 <Button busy={uploading > 0}>
                   <Upload size={16} />
-                  Upload
+                  {t("Upload")}
                 </Button>
               </div>
             </form>
@@ -698,7 +699,7 @@ export default function ResourcePanel({
                   className="secondary"
                   onClick={() => setForm(null)}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
                 <Button busy={busy} disabled={uploading > 0}>
                   Save {spec.singular}

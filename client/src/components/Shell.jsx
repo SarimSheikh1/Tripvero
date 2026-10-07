@@ -1,3 +1,5 @@
+import { useLanguage, setLanguage } from "../services/language";
+import { t } from "../services/language";
 import React, { useEffect, useState, createContext, useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -23,7 +25,8 @@ import toast from "react-hot-toast";
 const Socket = createContext();
 export const useSocket = () => useContext(Socket);
 export default function Shell() {
-  const { user, logout } = useAuth(),
+  const language = useLanguage();
+  const { user, logout, setUser } = useAuth(),
     navigate = useNavigate(),
     [dark, setDark] = useState(
       localStorage.getItem("tripvero-theme") === "dark",
@@ -82,17 +85,17 @@ export default function Shell() {
                 onClick={() => setOpen(false)}
               >
                 <Icon size={20} />
-                {label}
+                {t(label)}
               </NavLink>
             ))}
           </nav>
           <details className="simple-disclosure sidebar-extra">
-            <summary>More tools</summary>
+            <summary>{t("More tools")}</summary>
             <NavLink to="/app/reports" onClick={() => setOpen(false)}>
-              Reports
+              {t("Reports")}
             </NavLink>
             <NavLink to="/app/activity" onClick={() => setOpen(false)}>
-              Activity
+              {t("Activity")}
             </NavLink>
           </details>
           <div className="sidebar-user">
@@ -134,6 +137,24 @@ export default function Shell() {
               <Menu />
             </button>
             <span className="topbar-title">Tripvero</span>
+            <select
+              className="language-picker"
+              aria-label="App language"
+              value={language}
+              onChange={async (e) => {
+                const value = e.target.value;
+                try {
+                  await api.patch("/users/me/language", { language: value });
+                  setLanguage(value);
+                  setUser({ ...user, language: value });
+                } catch (error) {
+                  toast.error(error.userMessage);
+                }
+              }}
+            >
+              <option value="en">English</option>
+              <option value="roman-ur">Roman Urdu</option>
+            </select>
             <div>
               <button
                 className="icon-btn"
@@ -178,7 +199,7 @@ export default function Shell() {
               }}
             >
               <CheckCheck size={16} />
-              Mark all as read
+              {t("Mark all as read")}
             </Button>
             <div className="notification-list">
               {notifications.length ? (

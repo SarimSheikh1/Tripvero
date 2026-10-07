@@ -208,3 +208,7 @@ Passwords are bcrypt-hashed and excluded from responses. JWTs are HttpOnly, same
 Uploads allow JPG/PNG/WEBP/PDF only, check extension/MIME/header signature, enforce an 8 MB limit and use random filenames. They are never served through a public static uploads directory. Every member can access the trip's documents, including receipts and IDs; this is stated before upload. Content scanning/OCR and malware scanning are future integrations. Root secrets, files, local database and binaries are ignored by Git.
 
 Available functionality is implemented, but a commercial launch is not certified by the build/test checks. Automatic scheduled reminders, email verification UI, full Urdu/Arabic translation, live currency conversion, maps, external bookings, payment processing, OCR and push delivery are not enabled. Language selection is a saved preference. SMTP and Cloudinary have service/configuration boundaries as described above; no external provider is falsely presented as active. Expense payment status is represented by the group ledger and recorded settlements, rather than an invented per-receipt paid/unpaid allocation.
+
+## Interface language
+
+Choose English or Roman Urdu in the signed-in top bar or Profile. Core navigation, buttons and form labels use an explicit translation dictionary. The account preference persists across login; a browser preference mirrors it for initial rendering. User-entered names, notes and destinations are preserved. Detailed help, some advanced descriptions and server errors currently remain English.

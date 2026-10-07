@@ -1,3 +1,4 @@
+import { t, translateChildren } from "../services/language";
 import React, { useEffect, useRef, useState } from "react";
 import {
   MapPin,
@@ -27,14 +28,14 @@ export function Button({ children, busy, className = "", ...props }) {
       {...props}
     >
       {busy ? <LoaderCircle className="spin" size={17} /> : null}
-      {children}
+      {translateChildren(children)}
     </button>
   );
 }
 export function Field({ label, children, ...props }) {
   return (
     <label className="field">
-      <span>{label}</span>
+      <span>{t(label)}</span>
       {children || <input {...props} />}
     </label>
   );
@@ -48,7 +49,7 @@ export function Select({ label, options, ...props }) {
             key={typeof o === "string" ? o : o.value}
             value={typeof o === "string" ? o : o.value}
           >
-            {typeof o === "string" ? o : o.label}
+            {t(typeof o === "string" ? o : o.label)}
           </option>
         ))}
       </select>
@@ -78,7 +79,7 @@ export function Modal({ title, onClose, children }) {
       }}
     >
       <header>
-        <h2>{title}</h2>
+        <h2>{t(title)}</h2>
         <button
           aria-label="Close dialog"
           className="icon-btn"
@@ -112,7 +113,7 @@ export function Confirm({
       )}
       <div className="form-actions">
         <Button className="secondary" onClick={onClose}>
-          Cancel
+          {t("Cancel")}
         </Button>
         <Button
           className="danger"
@@ -145,7 +146,7 @@ export function Empty({
       <span className="empty-icon">
         <Compass size={36} />
       </span>
-      <h3>{title}</h3>
+      <h3>{t(title)}</h3>
       <p>{text}</p>
       {action}
     </div>
@@ -196,7 +197,7 @@ export function Stat({ label, value, icon: Icon, note, tone = "" }) {
   return (
     <div className={`stat ${tone}`}>
       <div className="stat-top">
-        <span>{label}</span>
+        <span>{t(label)}</span>
         {Icon && <Icon size={19} />}
       </div>
       <strong>{value}</strong>
@@ -208,7 +209,7 @@ export function Toggle({ label, checked, onChange }) {
   return (
     <label className="toggle-label">
       <input type="checkbox" checked={checked} onChange={onChange} />
-      <span>{label}</span>
+      <span>{t(label)}</span>
     </label>
   );
 }

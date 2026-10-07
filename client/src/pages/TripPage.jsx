@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import { registerTripTools } from "../services/webmcp";
 import React, { useEffect, useState } from "react";
 import {
@@ -180,7 +181,7 @@ export default function TripPage() {
     <>
       <Link className="back-link" to="/app/trips">
         <ArrowLeft size={15} />
-        All trips
+        {t("All trips")}
       </Link>
       <div className="trip-heading">
         <div>
@@ -210,13 +211,13 @@ export default function TripPage() {
           {admin && canWrite && (
             <Button className="secondary" onClick={showInvite}>
               <Users size={17} />
-              Invite group
+              {t("Invite group")}
             </Button>
           )}
           {canWrite && (
             <Button onClick={() => setExpenseModal({})}>
               <Plus size={18} />
-              Add expense
+              {t("Add expense")}
             </Button>
           )}
         </div>
@@ -235,7 +236,7 @@ export default function TripPage() {
               className={tab === key ? "active" : ""}
               onClick={() => setParams({ tab: key })}
             >
-              {label}
+              {t(label)}
             </button>
           ))}
         <select
@@ -245,18 +246,18 @@ export default function TripPage() {
             if (e.target.value) setParams({ tab: e.target.value });
           }}
         >
-          <option value="">More tools</option>
+          <option value="">{t("More tools")}</option>
           {tabs
             .filter(([key]) => !mainTabs.has(key))
             .map(([key, label]) => (
               <option key={key} value={key}>
-                {label}
+                {t(label)}
               </option>
             ))}
         </select>
       </div>
       <details className="simple-disclosure">
-        <summary>Search this trip</summary>
+        <summary>{t("Search this trip")}</summary>
         <form className="trip-search" onSubmit={searchTrip}>
           <Search size={17} />
           <input
@@ -267,7 +268,7 @@ export default function TripPage() {
             minLength={2}
             maxLength={100}
           />
-          <button className="text-btn">Search</button>
+          <button className="text-btn">{t("Search")}</button>
         </form>
       </details>
       {tab === "overview" && (
@@ -311,7 +312,7 @@ export default function TripPage() {
             />
           </div>
           <details className="simple-disclosure panel">
-            <summary>Budget details & charts</summary>
+            <summary>{t("Budget details & charts")}</summary>
             <div className="overview-insights">
               <article className="panel">
                 <span className="eyebrow">PACE YOUR ADVENTURE</span>
@@ -330,7 +331,7 @@ export default function TripPage() {
                   className="text-btn"
                   onClick={() => setParams({ tab: "itinerary" })}
                 >
-                  View your itinerary
+                  {t("View your itinerary")}
                 </button>
               </article>
             </div>
@@ -684,7 +685,7 @@ export default function TripPage() {
           onClick={() => setExpenseModal({})}
         >
           <Plus size={20} />
-          Add expense
+          {t("Add expense")}
         </button>
       )}
     </>
@@ -890,7 +891,7 @@ function ExpensesPanel({
         {canWrite && (
           <Button onClick={() => onEdit({})}>
             <Plus size={17} />
-            Add expense
+            {t("Add expense")}
           </Button>
         )}
       </div>
@@ -973,10 +974,10 @@ function ExpensesPanel({
               <thead>
                 <tr>
                   <th>Expense</th>
-                  <th>Category</th>
-                  <th>Paid by</th>
+                  <th>{t("Category")}</th>
+                  <th>{t("Paid by")}</th>
                   <th>Split</th>
-                  <th>Amount</th>
+                  <th>{t("Amount")}</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -1185,9 +1186,9 @@ function SettlementsPanel({ data, version, onChange, onAdd, confirm, user }) {
             <tr>
               <th>From</th>
               <th>To</th>
-              <th>Amount</th>
+              <th>{t("Amount")}</th>
               <th>Method</th>
-              <th>Date</th>
+              <th>{t("Date")}</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -1482,9 +1483,9 @@ export function Reports({ data }) {
             [money(a.recap.averagePerPerson, trip.currency), "Per person"],
             [money(a.recap.averagePerDay, trip.currency), "Per day"],
           ].map(([value, label]) => (
-            <div key={label}>
+            <div key={t(label)}>
               <strong>{value}</strong>
-              <small>{label}</small>
+              <small>{t(label)}</small>
             </div>
           ))}
         </div>

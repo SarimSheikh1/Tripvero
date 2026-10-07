@@ -1366,6 +1366,7 @@ a:hover {
   display: block;
   padding: 10px 0;
 }
+.language-picker { max-width: 125px; padding: 7px 10px; font-size: .8rem; }
 .trip-tabs button {
   font-size: 0.82rem;
   white-space: nowrap;

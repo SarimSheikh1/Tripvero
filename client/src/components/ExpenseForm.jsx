@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useState } from "react";
 import { Plus, Trash2, Upload, Receipt } from "lucide-react";
 import { api, uid, iso, categories, notifyError, money } from "../services/api";
@@ -399,7 +400,7 @@ export default function ExpenseForm({
         </Field>
         <div className="form-actions">
           <Button type="button" className="secondary" onClick={onClose}>
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button busy={busy} disabled={uploading > 0}>
             {expense ? "Save changes" : "Save expense"}

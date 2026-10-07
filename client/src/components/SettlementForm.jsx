@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useState } from "react";
 import { api, uid, iso, notifyError } from "../services/api";
 import { Modal, Field, Select, Button } from "./UI";
@@ -141,7 +142,7 @@ export default function SettlementForm({
         />
         <div className="form-actions">
           <Button type="button" className="secondary" onClick={onClose}>
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button busy={busy || uploading}>Record payment</Button>
         </div>

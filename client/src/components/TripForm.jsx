@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useState } from "react";
 import { api, notifyError, currencies, iso, uid } from "../services/api";
 import { Modal, Field, Select, Button } from "./UI";
@@ -88,7 +89,7 @@ export default function TripForm({ trip, onClose, onSaved }) {
           />
         </div>
         <details className="simple-disclosure">
-          <summary>Optional details</summary>
+          <summary>{t("Optional details")}</summary>
           <Select
             label="Trip type"
             name="type"
@@ -125,7 +126,7 @@ export default function TripForm({ trip, onClose, onSaved }) {
         </details>
         <div className="form-actions">
           <Button type="button" className="secondary" onClick={onClose}>
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button busy={busy}>{trip ? "Save changes" : "Create trip"}</Button>
         </div>

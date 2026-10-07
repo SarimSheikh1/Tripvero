@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -132,11 +133,11 @@ export default function Landing() {
               <p>One trip. Everyone on the same page.</p>
               <div className="preview-stats">
                 <div>
-                  <small>Trip budget</small>
+                  <small>{t("Trip budget")}</small>
                   <strong>PKR 120,000</strong>
                 </div>
                 <div>
-                  <small>Remaining</small>
+                  <small>{t("Remaining")}</small>
                   <strong className="green">PKR 41,500</strong>
                 </div>
               </div>

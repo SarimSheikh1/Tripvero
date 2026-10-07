@@ -33,6 +33,12 @@ api.get("/admin/summary", platformAdmin.access, platformAdmin.summary);
 api.get("/auth/me", auth.me);
 api.post("/auth/logout", auth.logout);
 api.patch("/users/me", auth.profile);
+api.patch("/users/me/language", async (req, res) => {
+  if (!["en", "roman-ur"].includes(req.body.language))
+    return res.status(400).json({ message: "Choose English or Roman Urdu" });
+  await req.user.updateOne({ $set: { language: req.body.language } });
+  res.json({ language: req.body.language });
+});
 api.post("/users/me/avatar", upload.single("file"), auth.avatar);
 api.get("/users/:userId/avatar", auth.avatarFile);
 api.get("/notifications", async (req, res) =>

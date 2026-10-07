@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import { api, money, uid, notifyError } from "../services/api";
 import { Button, Field, Select } from "./UI";
@@ -69,7 +70,7 @@ export default function TravelChoices({ trip, members, role }) {
   return (
     <>
       <section className="panel">
-        <h2>Which hotel should we choose?</h2>
+        <h2>{t("Which hotel should we choose?")}</h2>
         <p className="muted">
           Compare actual hotel quotes and let the group vote. Budget guesthouse:
           lower cost. Standard hotel: comfort and value. Resort: more
@@ -87,7 +88,7 @@ export default function TravelChoices({ trip, members, role }) {
         )}
       </section>
       <section className="panel">
-        <h2>Bus or car?</h2>
+        <h2>{t("Bus or car?")}</h2>
         <p className="muted">
           Enter your quotes for the full return journey in {trip.currency}. Car
           costs are per vehicle. Estimates exclude accommodation, meals and
@@ -141,7 +142,7 @@ export default function TravelChoices({ trip, members, role }) {
         )}
       </section>
       <section className="panel">
-        <h2>Group shortlist</h2>
+        <h2>{t("Group shortlist")}</h2>
         <p className="muted">
           A vote is a preference. Adding an option does not make a booking or
           add an expense.
@@ -180,7 +181,7 @@ export default function TravelChoices({ trip, members, role }) {
               />
             </div>
             <Button busy={busy} type="submit">
-              Add option
+              {t("Add option")}
             </Button>
           </form>
         )}
@@ -210,12 +211,12 @@ export default function TravelChoices({ trip, members, role }) {
                   className="secondary"
                   onClick={() => mutate(c._id, true)}
                 >
-                  Vote / undo vote
+                  {t("Vote / undo vote")}
                 </Button>
                 {(["owner", "admin"].includes(role) ||
                   uid(c.createdBy) === uid(user)) && (
                   <Button className="secondary" onClick={() => mutate(c._id)}>
-                    Remove option
+                    {t("Remove option")}
                   </Button>
                 )}
               </>

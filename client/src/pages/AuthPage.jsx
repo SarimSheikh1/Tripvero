@@ -1,3 +1,5 @@
+import { setLanguage } from "../services/language";
+import { t } from "../services/language";
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { api, notifyError } from "../services/api";
@@ -44,6 +46,7 @@ export default function AuthPage({ mode = "login" }) {
       );
       if (["login", "register"].includes(mode)) {
         setUser(r.data);
+        setLanguage(r.data.language);
         navigate(
           params.get("next")?.startsWith("/join") ? params.get("next") : "/app",
         );
@@ -183,7 +186,7 @@ export default function AuthPage({ mode = "login" }) {
                   },
                 })}
               />
-              <Link to="/forgot-password">Forgot password?</Link>
+              <Link to="/forgot-password">{t("Forgot password?")}</Link>
             </div>
           )}
           <Button busy={busy} className="full" type="submit">
@@ -199,7 +202,8 @@ export default function AuthPage({ mode = "login" }) {
         <p className="muted">
           {mode === "login" ? (
             <>
-              New to Tripvero? <Link to="/register">Create an account</Link>
+              New to Tripvero?{" "}
+              <Link to="/register">{t("Create an account")}</Link>
             </>
           ) : (
             <Link to="/login">Back to sign in</Link>

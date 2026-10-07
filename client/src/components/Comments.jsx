@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import { api, notifyError, uid } from "../services/api";
 import { useAuth } from "../context/Auth";
@@ -90,7 +91,7 @@ export default function Comments({ tripId, target, targetType, canWrite }) {
                 setText("");
               }}
             >
-              Cancel
+              {t("Cancel")}
             </button>
           )}
         </form>

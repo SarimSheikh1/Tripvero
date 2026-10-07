@@ -1,3 +1,4 @@
+import { t } from "../services/language";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/Auth";
@@ -20,10 +21,12 @@ export default function Admin() {
     <>
       <div className="page-heading">
         <div>
-          <h1>App administration</h1>
-          <p className="muted">See how many people are using Tripvero.</p>
+          <h1>{t("App administration")}</h1>
+          <p className="muted">
+            {t("See how many people are using Tripvero.")}
+          </p>
         </div>
-        <Button onClick={load}>Refresh</Button>
+        <Button onClick={load}>{t("Refresh")}</Button>
       </div>
       <div className="stats-grid">
         {[
@@ -40,17 +43,17 @@ export default function Admin() {
         ))}
       </div>
       <section className="panel">
-        <h2>Latest 100 registered users</h2>
+        <h2>{t("Latest 100 registered users")}</h2>
         <div style={{ overflowX: "auto" }}>
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Joined</th>
-                <th>Last active</th>
-                <th>Logins</th>
+                <th>{t("Name")}</th>
+                <th>{t("Email")}</th>
+                <th>{t("Role")}</th>
+                <th>{t("Joined")}</th>
+                <th>{t("Last active")}</th>
+                <th>{t("Logins")}</th>
               </tr>
             </thead>
             <tbody>

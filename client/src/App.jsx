@@ -1,3 +1,4 @@
+import { useLanguage } from "./services/language";
 import React, { Suspense, lazy } from "react";
 import {
   BrowserRouter,
@@ -54,6 +55,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 export default function App() {
+  useLanguage();
   return (
     <ErrorBoundary>
       <BrowserRouter>

@@ -28,7 +28,7 @@ export const profileSchema = z.object({
   phone: optional,
   country: optional,
   currency: z.enum(["PKR", "USD", "AED", "SAR", "EUR", "GBP"]),
-  language: z.enum(["en", "ur", "ar"]).optional(),
+  language: z.enum(["en", "roman-ur", "ur", "ar"]).optional(),
   settings: z
     .object({ theme: z.enum(["light", "dark"]), notifications: z.boolean() })
     .optional(),

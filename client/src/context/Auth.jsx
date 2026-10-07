@@ -1,3 +1,4 @@
+import { setLanguage } from "../services/language";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 const Auth = createContext();
@@ -7,7 +8,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     api
       .get("/auth/me")
-      .then((r) => setUser(r.data))
+      .then((r) => {
+        setUser(r.data);
+        if (["en", "roman-ur"].includes(r.data.language))
+          setLanguage(r.data.language);
+      })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
