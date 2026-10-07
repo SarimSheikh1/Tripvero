@@ -1,0 +1,9 @@
+node_modules
+.git
+**/.env
+**/.env.*
+**/.local-data
+**/.local-secret
+**/.mongo-binaries
+server/uploads/*
+client/dist

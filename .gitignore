@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+server/uploads/*
+!server/uploads/.gitkeep
+client/dist/
+coverage/
+server/.local-data/
+server/.mongo-binaries/
+server/.local-secret

@@ -1,0 +1,28 @@
+{
+  "name": "tripvero-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host localhost",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.3",
+    "axios": "^1.12.2",
+    "lucide-react": "^0.544.0",
+    "recharts": "^3.2.1",
+    "framer-motion": "^12.23.22",
+    "react-hot-toast": "^2.6.0",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.9",
+    "tailwindcss": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.13"
+  }
+}
