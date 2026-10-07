@@ -43,6 +43,9 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/api", csrf, api);
+app.use("/api", (req, res) =>
+  res.status(404).json({ message: "API route not found" }),
+);
 if (config.production) {
   const publicDir = fileURLToPath(new URL("../client/dist/", import.meta.url));
   app.use(express.static(publicDir));
