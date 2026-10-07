@@ -1342,6 +1342,30 @@ a:hover {
   margin: 28px 0 20px;
   scrollbar-width: thin;
 }
+.trip-tabs select {
+  min-width: 130px;
+  align-self: center;
+  margin-left: auto;
+}
+.simple-disclosure {
+  margin: 16px 0;
+}
+.simple-disclosure > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px 0;
+  color: var(--muted);
+}
+.simple-disclosure[open] > summary {
+  margin-bottom: 12px;
+}
+.sidebar-extra {
+  margin: 16px 20px;
+}
+.sidebar-extra a {
+  display: block;
+  padding: 10px 0;
+}
 .trip-tabs button {
   font-size: 0.82rem;
   white-space: nowrap;

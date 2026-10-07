@@ -32,7 +32,7 @@ export default function TripForm({ trip, onClose, onSaved }) {
     }
   };
   return (
-    <Modal title={trip ? "Edit trip" : "A new adventure"} onClose={onClose}>
+    <Modal title={trip ? "Edit trip" : "New trip"} onClose={onClose}>
       <form onSubmit={submit}>
         <Field
           label="Trip name"
@@ -87,39 +87,42 @@ export default function TripForm({ trip, onClose, onSaved }) {
             required
           />
         </div>
-        <Select
-          label="Trip type"
-          name="type"
-          options={[
-            "Friends",
-            "Family",
-            "Couple",
-            "Business",
-            "Solo",
-            "Road Trip",
-            "Adventure",
-            "Religious",
-            "Other",
-          ]}
-          value={form.type}
-          onChange={change}
-        />
-        <Field label="Description">
-          <textarea
-            name="description"
-            value={form.description}
+        <details className="simple-disclosure">
+          <summary>Optional details</summary>
+          <Select
+            label="Trip type"
+            name="type"
+            options={[
+              "Friends",
+              "Family",
+              "Couple",
+              "Business",
+              "Solo",
+              "Road Trip",
+              "Adventure",
+              "Religious",
+              "Other",
+            ]}
+            value={form.type}
             onChange={change}
-            rows={3}
           />
-        </Field>
-        <Field
-          label="Cover image URL (optional)"
-          type="url"
-          name="coverImage"
-          value={form.coverImage}
-          onChange={change}
-          placeholder="https://..."
-        />
+          <Field label="Description">
+            <textarea
+              name="description"
+              value={form.description}
+              onChange={change}
+              rows={3}
+            />
+          </Field>
+          <Field
+            label="Cover image URL (optional)"
+            type="url"
+            name="coverImage"
+            value={form.coverImage}
+            onChange={change}
+            placeholder="https://..."
+          />
+        </details>
         <div className="form-actions">
           <Button type="button" className="secondary" onClick={onClose}>
             Cancel

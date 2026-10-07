@@ -90,15 +90,8 @@ export default function Dashboard({ tripsOnly = false }) {
     <>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">
-            {tripsOnly ? "YOUR TRAVEL COLLECTION" : "LET’S MAKE SOME MEMORIES"}
-          </span>
-          <h1>
-            {tripsOnly
-              ? "My trips"
-              : `Hey ${user.name.split(" ")[0]}, where to next?`}
-          </h1>
-          <p>Good trips start with a little planning. Your group’s all here.</p>
+          <h1>{tripsOnly ? "My trips" : `Hi ${user.name.split(" ")[0]}`}</h1>
+          <p>Create a trip, invite friends and track expenses.</p>
         </div>
         <div className="actions">
           <Button className="secondary" onClick={() => setJoin(true)}>
@@ -125,7 +118,7 @@ export default function Dashboard({ tripsOnly = false }) {
             </select>
             <small>Amounts grouped by currency</small>
           </div>
-          <div className="stats-grid">
+          <div className="stats-grid four">
             <Stat
               label="Active trips"
               value={active.length}
@@ -133,19 +126,9 @@ export default function Dashboard({ tripsOnly = false }) {
               note="More adventures ahead"
             />
             <Stat
-              label="Total budget"
-              value={money(total("budget"), currency)}
-              icon={Wallet}
-            />
-            <Stat
               label="Total expenses"
               value={money(total("spent"), currency)}
               icon={TrendingUp}
-            />
-            <Stat
-              label="You paid"
-              value={money(paid, currency)}
-              icon={Ticket}
             />
             <Stat
               label="You owe"
@@ -164,8 +147,7 @@ export default function Dashboard({ tripsOnly = false }) {
       )}
       <div className="section-bar">
         <h2>
-          {tripsOnly ? "All adventures" : "Your adventures"}{" "}
-          <span className="count">{visible.length}</span>
+          Your trips <span className="count">{visible.length}</span>
         </h2>
         <div className="actions">
           <input

@@ -59,15 +59,22 @@ import ResourcePanel from "../components/ResourcePanel";
 import Comments from "../components/Comments";
 import Charts from "../components/Charts";
 import TravelChoices from "../components/TravelChoices";
+const mainTabs = new Set([
+  "overview",
+  "expenses",
+  "choices",
+  "itinerary",
+  "gallery",
+]);
 const tabs = [
-  ["overview", "Overview"],
-  ["choices", "Hotels & travel choices"],
+  ["overview", "Summary"],
+  ["choices", "Hotels & travel"],
   ["members", "Members"],
   ["expenses", "Expenses"],
   ["budget", "Budget"],
   ["ledger", "Ledger"],
   ["settlements", "Settlements"],
-  ["itinerary", "Itinerary"],
+  ["itinerary", "Plan"],
   ["accommodations", "Accommodation"],
   ["transport", "Transport"],
   ["food", "Food"],
@@ -220,28 +227,49 @@ export default function TripPage() {
         </div>
       )}
       <div className="trip-tabs" role="navigation" aria-label="Trip sections">
-        {tabs.map(([key, label]) => (
-          <button
-            key={key}
-            className={tab === key ? "active" : ""}
-            onClick={() => setParams({ tab: key })}
-          >
-            {label}
-          </button>
-        ))}
+        {tabs
+          .filter(([key]) => mainTabs.has(key))
+          .map(([key, label]) => (
+            <button
+              key={key}
+              className={tab === key ? "active" : ""}
+              onClick={() => setParams({ tab: key })}
+            >
+              {label}
+            </button>
+          ))}
+        <select
+          aria-label="More trip tools"
+          value={mainTabs.has(tab) ? "" : tab}
+          onChange={(e) => {
+            if (e.target.value) setParams({ tab: e.target.value });
+          }}
+        >
+          <option value="">More tools</option>
+          {tabs
+            .filter(([key]) => !mainTabs.has(key))
+            .map(([key, label]) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+        </select>
       </div>
-      <form className="trip-search" onSubmit={searchTrip}>
-        <Search size={17} />
-        <input
-          aria-label="Search this trip"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search expenses, travelers, places and notes…"
-          minLength={2}
-          maxLength={100}
-        />
-        <button className="text-btn">Search</button>
-      </form>
+      <details className="simple-disclosure">
+        <summary>Search this trip</summary>
+        <form className="trip-search" onSubmit={searchTrip}>
+          <Search size={17} />
+          <input
+            aria-label="Search this trip"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search expenses, travelers, places and notes…"
+            minLength={2}
+            maxLength={100}
+          />
+          <button className="text-btn">Search</button>
+        </form>
+      </details>
       {tab === "overview" && (
         <>
           <div className="trip-overview-banner">
@@ -255,22 +283,6 @@ export default function TripPage() {
               <p>
                 {trip.description ||
                   "Your plans, people and spending. All together."}
-              </p>
-            </div>
-            <div className="health">
-              <span>
-                <ShieldCheck size={18} /> Trip health
-              </span>
-              <strong>
-                {a.health}
-                <small>/100</small>
-              </strong>
-              <p>
-                {a.health >= 80
-                  ? "Looking good"
-                  : a.health >= 50
-                    ? "A little planning goes a long way"
-                    : "Let’s get organized"}
               </p>
             </div>
           </div>
@@ -298,37 +310,40 @@ export default function TripPage() {
               icon={HandCoins}
             />
           </div>
-          <div className="overview-insights">
-            <article className="panel">
-              <span className="eyebrow">PACE YOUR ADVENTURE</span>
-              <h3>
-                {money(a.dailyBudget, c)} <small>/ day</small>
-              </h3>
-              <p>
-                Recommended spending across {a.daysLeft} remaining trip days.
-              </p>
-            </article>
-            <article className="panel">
-              <span className="eyebrow">YOUR PLANS ARE TAKING SHAPE</span>
-              <h3>{a.planningProgress}% complete</h3>
-              <Progress value={a.planningProgress} />
-              <button
-                className="text-btn"
-                onClick={() => setParams({ tab: "itinerary" })}
-              >
-                View your itinerary
-              </button>
-            </article>
-          </div>
-          <Charts analytics={a} members={members} currency={c} />
-          {a.insights.length > 0 && (
-            <section className="panel insights">
-              <h3>Smart budget insights</h3>
-              {a.insights.map((t) => (
-                <p key={t}>{t}</p>
-              ))}
-            </section>
-          )}
+          <details className="simple-disclosure panel">
+            <summary>Budget details & charts</summary>
+            <div className="overview-insights">
+              <article className="panel">
+                <span className="eyebrow">PACE YOUR ADVENTURE</span>
+                <h3>
+                  {money(a.dailyBudget, c)} <small>/ day</small>
+                </h3>
+                <p>
+                  Recommended spending across {a.daysLeft} remaining trip days.
+                </p>
+              </article>
+              <article className="panel">
+                <span className="eyebrow">YOUR PLANS ARE TAKING SHAPE</span>
+                <h3>{a.planningProgress}% complete</h3>
+                <Progress value={a.planningProgress} />
+                <button
+                  className="text-btn"
+                  onClick={() => setParams({ tab: "itinerary" })}
+                >
+                  View your itinerary
+                </button>
+              </article>
+            </div>
+            <Charts analytics={a} members={members} currency={c} />
+            {a.insights.length > 0 && (
+              <section className="panel insights">
+                <h3>Smart budget insights</h3>
+                {a.insights.map((t) => (
+                  <p key={t}>{t}</p>
+                ))}
+              </section>
+            )}
+          </details>
         </>
       )}
       {tab === "members" && (

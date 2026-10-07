@@ -60,10 +60,8 @@ export default function Shell() {
     }
   };
   const links = [
-    ["/app", "Overview", LayoutDashboard],
+    ["/app", "Home", LayoutDashboard],
     ["/app/trips", "My trips", Luggage],
-    ["/app/reports", "Reports", BarChart3],
-    ["/app/activity", "Activity", Activity],
     ["/app/profile", "Profile", UserRound],
   ];
   if (user.role === "admin") links.push(["/app/admin", "App admin", BarChart3]);
@@ -88,12 +86,15 @@ export default function Shell() {
               </NavLink>
             ))}
           </nav>
-          <div className="sidebar-tip">
-            <CompassIcon />
-            <b>A trip worth remembering.</b>
-            <p>Bring the group. Leave the spreadsheets.</p>
-            <NavLink to="/app/trips">Plan an adventure</NavLink>
-          </div>
+          <details className="simple-disclosure sidebar-extra">
+            <summary>More tools</summary>
+            <NavLink to="/app/reports" onClick={() => setOpen(false)}>
+              Reports
+            </NavLink>
+            <NavLink to="/app/activity" onClick={() => setOpen(false)}>
+              Activity
+            </NavLink>
+          </details>
           <div className="sidebar-user">
             <Avatar user={user} />
             <div>
@@ -132,7 +133,7 @@ export default function Shell() {
             >
               <Menu />
             </button>
-            <span className="topbar-title">Your adventures, organized.</span>
+            <span className="topbar-title">Tripvero</span>
             <div>
               <button
                 className="icon-btn"
