@@ -89,8 +89,9 @@ export default function Dashboard({ tripsOnly = false }) {
   );
   return (
     <>
-      <div className="page-heading">
+      <div className="page-heading dashboard-welcome">
         <div>
+          <span className="eyebrow">{t("Your next adventure")}</span>
           <h1>
             {tripsOnly
               ? t("My trips")
@@ -108,6 +109,25 @@ export default function Dashboard({ tripsOnly = false }) {
           </Button>
         </div>
       </div>
+      {!tripsOnly && trips.length === 0 && (
+        <section className="getting-started" aria-label="Getting started">
+          <div>
+            <span className="step-number">1</span>
+            <h3>{t("Plan your trip")}</h3>
+            <p>{t("Choose a destination, dates and budget.")}</p>
+          </div>
+          <div>
+            <span className="step-number">2</span>
+            <h3>{t("Bring your friends")}</h3>
+            <p>{t("Share an invite code with your group.")}</p>
+          </div>
+          <div>
+            <span className="step-number">3</span>
+            <h3>{t("Keep track together")}</h3>
+            <p>{t("Add expenses, plans and photos in one place.")}</p>
+          </div>
+        </section>
+      )}
       {!tripsOnly && (
         <>
           <div className="summary-label">

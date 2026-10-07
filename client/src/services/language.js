@@ -18,6 +18,15 @@ export function useLanguage() {
   );
 }
 const roman = {
+  "Your next adventure": "Aap ka agla safar",
+  "Plan your trip": "Apni trip plan karein",
+  "Choose a destination, dates and budget.":
+    "Jagah, tareekh aur budget choose karein.",
+  "Bring your friends": "Doston ko saath laayein",
+  "Share an invite code with your group.": "Group ko invite code dein.",
+  "Keep track together": "Mil kar hisaab rakhein",
+  "Add expenses, plans and photos in one place.":
+    "Kharchay, planning aur tasveerain ek jagah rakhein.",
   Hello: "Assalam o alaikum",
   "Add document": "Document add karein",
   "Edit photo": "Tasveer edit karein",
