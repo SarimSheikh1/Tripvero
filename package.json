@@ -10,11 +10,10 @@
     "dev": "concurrently -k -n API,WEB \"npm run dev -w server\" \"npm run dev -w client\"",
     "build": "npm run build -w client",
     "start": "npm run start -w server",
-    "seed": "npm run seed -w server",
     "test": "npm run test -w server",
     "dev:local": "node scripts/dev-local.mjs",
-    "dev:sample": "node scripts/dev-local.mjs --seed",
-    "seed:local": "node --env-file=server/.env.local server/seed.js"
+    "admin:local": "node --env-file=server/.env.local server/setup-admin.js",
+    "admin:setup": "node --env-file=server/.env server/setup-admin.js"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",

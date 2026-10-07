@@ -58,8 +58,10 @@ import TripForm from "../components/TripForm";
 import ResourcePanel from "../components/ResourcePanel";
 import Comments from "../components/Comments";
 import Charts from "../components/Charts";
+import TravelChoices from "../components/TravelChoices";
 const tabs = [
   ["overview", "Overview"],
+  ["choices", "Hotels & travel choices"],
   ["members", "Members"],
   ["expenses", "Expenses"],
   ["budget", "Budget"],
@@ -443,6 +445,9 @@ export default function TripPage() {
         />
       )}{" "}
       {tab === "reports" && <Reports data={data} />}{" "}
+      {tab === "choices" && (
+        <TravelChoices trip={trip} members={members} role={role} />
+      )}
       {tab === "settings" && (
         <section className="panel settings-panel">
           <h2>Trip settings</h2>

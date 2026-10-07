@@ -9,3 +9,4 @@ coverage/
 server/.local-data/
 server/.mongo-binaries/
 server/.local-secret
+ADMIN-CREDENTIALS.txt

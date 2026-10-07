@@ -59,6 +59,10 @@ export async function login(req, res) {
     401,
   );
   session(res, user, data.remember);
+  user.lastLoginAt = new Date();
+  user.lastActiveAt = new Date();
+  user.loginCount = (user.loginCount || 0) + 1;
+  await user.save();
   res.json(safe(user));
 }
 export async function logout(req, res) {

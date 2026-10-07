@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import mongoose from "mongoose";
 import {
   Trip,
+  TripChoice,
   TripMember,
   User,
   Expense,
@@ -126,6 +127,7 @@ export async function remove(req, res) {
     await Trip.deleteOne({ _id: req.trip._id }, { session });
     for (const Model of new Set([
       TripMember,
+      TripChoice,
       Expense,
       Settlement,
       ...Object.values(resources),

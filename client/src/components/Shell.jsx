@@ -66,6 +66,7 @@ export default function Shell() {
     ["/app/activity", "Activity", Activity],
     ["/app/profile", "Profile", UserRound],
   ];
+  if (user.role === "admin") links.push(["/app/admin", "App admin", BarChart3]);
   return (
     <Socket.Provider value={socket}>
       <div className="app-shell">

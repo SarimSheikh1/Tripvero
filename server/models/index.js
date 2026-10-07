@@ -12,6 +12,10 @@ const userSchema = new Schema(
     name: { type: String, required: true, maxlength: 100 },
     email: { type: String, required: true, unique: true, lowercase: true },
     phone: String,
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+    lastActiveAt: Date,
+    lastLoginAt: Date,
+    loginCount: { type: Number, default: 0 },
     password: { type: String, required: true, select: false },
     avatar: String,
     avatarFile: { type: String, select: false },
@@ -30,6 +34,21 @@ const userSchema = new Schema(
   options,
 );
 export const User = mongoose.model("User", userSchema);
+export const TripChoice = mongoose.model(
+  "TripChoice",
+  new Schema(
+    {
+      trip: ref("Trip"),
+      createdBy: ref("User"),
+      kind: { type: String, enum: ["hotel", "bus", "car"], required: true },
+      name: { type: String, required: true, maxlength: 120 },
+      total: money,
+      notes: { type: String, maxlength: 1000 },
+      votes: [ref("User")],
+    },
+    options,
+  ),
+);
 export const Trip = mongoose.model(
   "Trip",
   new Schema(

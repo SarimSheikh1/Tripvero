@@ -84,18 +84,6 @@ await writeFile(
     .map(([key, value]) => key + "=" + value)
     .join("\n") + "\n",
 );
-if (process.argv.includes("--seed")) {
-  const seeded = spawn(process.execPath, ["seed.js"], {
-    cwd: path.join(root, "server"),
-    env,
-    stdio: "inherit",
-  });
-  await new Promise((resolve, reject) =>
-    seeded.on("exit", (code) =>
-      code === 0 ? resolve() : reject(new Error("Seed failed")),
-    ),
-  );
-}
 const api = spawn(process.execPath, ["--watch", "server.js"], {
   cwd: path.join(root, "server"),
   env,

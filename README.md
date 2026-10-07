@@ -17,18 +17,11 @@ npm run dev:local
 
 Open **http://localhost:5173**. Register your own account and create a trip. This command launches a real MongoDB `mongod` process, initializes a single-node replica set for transactions, and starts the API and frontend. It binds the database to loopback and preserves data in `server/.local-data`. No MongoDB installation or cloud account is required for this development option.
 
-For the sample Hunza trip, use **`npm run dev:sample`** instead. If local mode is already running, `npm run seed:local` adds the sample records without replacing existing users or trips.
+Sample accounts are removed. Normal users register through the app. With the local app running, open a second terminal and run `npm run admin:local`. This creates a separate app administrator and saves its random password in the ignored `ADMIN-CREDENTIALS.txt`. Existing admin passwords are preserved on repeated runs. Only the four old sample accounts and their sample-owned trips are removed; migration stops if they are connected to real members or trips.
 
-Development-only sign-in details:
+Sign in with the administrator credentials and open `/app/admin`. The dashboard shows registered users, signed-in active users over 24 hours / 7 days, new users, successful login counts, trips and expenses, plus the latest 100 users. Tracking begins with this update; anonymous visitors are not counted. For a configured database, use `npm run admin:setup`. Optional `ADMIN_EMAIL` and `ADMIN_PASSWORD` environment variables customize the initial credentials. Never publish the credentials file.
 
-| Traveler       | Email               | Password         |
-| -------------- | ------------------- | ---------------- |
-| Ali (owner)    | ali@tripvero.test   | TripveroDev!2026 |
-| Ahmed (admin)  | ahmed@tripvero.test | TripveroDev!2026 |
-| Sarim (member) | sarim@tripvero.test | TripveroDev!2026 |
-| Usman (member) | usman@tripvero.test | TripveroDev!2026 |
-
-Seed data: Hunza Adventure, PKR 120,000 budget, hotel 40,000, food 12,500, fuel 18,000 and activities 8,000. The seed is idempotent and disabled when `NODE_ENV=production`. These accounts are strictly for development and must never be seeded into a public deployment.
+Every trip now includes **Hotels & travel choices**: named hotel/provider quotes, group voting, total and per-person costs, and bus/car comparison using your own return fares, distance, fuel, hire, tolls and passenger capacity. These are estimates, not live hotel listings, bookings or verified prices. Votes do not create expenses. The lowest transport estimate is recommended; hotel favourites follow votes, with cost breaking ties.
 
 Stop with Ctrl+C. Restarting preserves the local database. The ignored `.env.local`, `.local-secret`, `.local-data`, upload directory, and binary cache are never committed. This helper uses `mongodb-memory-server` to manage an actual MongoDB binary; the application's local database is disk-backed, not an in-memory array or localStorage implementation.
 
@@ -41,7 +34,7 @@ Use MongoDB Atlas or a MongoDB replica set. A standalone MongoDB process without
 3. Set `MONGODB_URI` and replace `JWT_SECRET` with a cryptographically random secret of at least 32 characters.
 4. Set `CLIENT_URL=http://localhost:5173` for development.
 5. Run `npm run dev` at the root to start both applications. Alternatively run `npm run dev -w server` and `npm run dev -w client` in separate terminals.
-6. Run `npm run seed` if you want development sample data on that database.
+6. Run `npm run admin:setup` to create the administrator on that database.
 
 Generate a secret locally:
 

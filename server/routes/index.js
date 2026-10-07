@@ -4,6 +4,8 @@ import * as auth from "../controllers/auth.js";
 import * as trips from "../controllers/trips.js";
 import * as finance from "../controllers/finance.js";
 import * as records from "../controllers/resources.js";
+import * as planning from "../controllers/planning.js";
+import * as platformAdmin from "../controllers/admin.js";
 import {
   authenticate,
   tripAccess,
@@ -27,6 +29,7 @@ api.post("/auth/login", authLimit, auth.login);
 api.post("/auth/forgot-password", authLimit, auth.forgot);
 api.post("/auth/reset-password", authLimit, auth.reset);
 api.use(authenticate);
+api.get("/admin/summary", platformAdmin.access, platformAdmin.summary);
 api.get("/auth/me", auth.me);
 api.post("/auth/logout", auth.logout);
 api.patch("/users/me", auth.profile);
@@ -66,6 +69,10 @@ api.post("/trips/join", trips.join);
 const trip = Router({ mergeParams: true });
 api.use("/trips/:tripId", tripAccess, trip);
 trip.get("/", trips.detail);
+trip.get("/choices", planning.list);
+trip.post("/choices", writeAccess, planning.create);
+trip.post("/choices/:choiceId/vote", writeAccess, planning.vote);
+trip.delete("/choices/:choiceId", writeAccess, planning.remove);
 trip.get("/members", async (req, res) =>
   res.json(
     await (

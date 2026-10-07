@@ -20,6 +20,15 @@ export async function authenticate(req, res, next) {
       401,
     );
     req.user = user;
+    if (
+      !user.lastActiveAt ||
+      Date.now() - user.lastActiveAt.getTime() > 60000
+    ) {
+      await User.updateOne(
+        { _id: user._id },
+        { $set: { lastActiveAt: new Date() } },
+      );
+    }
     next();
   } catch (e) {
     next(e);

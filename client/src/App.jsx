@@ -14,6 +14,7 @@ const Landing = lazy(() => import("./pages/Landing")),
   Shell = lazy(() => import("./components/Shell")),
   Dashboard = lazy(() => import("./pages/Dashboard")),
   TripPage = lazy(() => import("./pages/TripPage"));
+const Admin = lazy(() => import("./pages/Admin"));
 const other = (name) =>
   lazy(() => import("./pages/OtherPages").then((m) => ({ default: m[name] })));
 const Profile = other("Profile"),
@@ -87,6 +88,7 @@ export default function App() {
                   <Route path="reports" element={<AllReports />} />
                   <Route path="activity" element={<AllActivity />} />
                   <Route path="profile" element={<Profile />} />
+                  <Route path="admin" element={<Admin />} />
                 </Route>
               </Route>
               <Route path="*" element={<Navigate to="/" replace />} />

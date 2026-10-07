@@ -516,6 +516,68 @@ test("CSRF and archived trip write protection", async () => {
     200,
   );
 });
+test("app admin metrics reject regular users and signup cannot grant admin", async () => {
+  const { User } = await import("../models/index.js");
+  assert.equal((await call(owner, "get", "/api/admin/summary")).status, 403);
+  const fake = await call(request.agent(app), "post", "/api/auth/register", {
+    name: "Fake",
+    email: "fake@example.test",
+    password: "AstrongPassword!27",
+    confirmPassword: "AstrongPassword!27",
+    role: "admin",
+  });
+  assert.equal(fake.body.role, "user");
+  await User.updateOne({ _id: user._id }, { $set: { role: "admin" } });
+  const r = await call(owner, "get", "/api/admin/summary");
+  assert.equal(r.status, 200);
+  assert.ok(r.body.registered >= 5);
+  assert.ok(r.body.activeToday >= 1);
+  assert.ok(r.body.totalLogins >= 1);
+  assert.equal(r.body.recentUsers[0].password, undefined);
+  await User.updateOne({ _id: user._id }, { $set: { role: "user" } });
+});
+test("trip hotel choices are isolated, validated, voted and protected", async () => {
+  const base = `/api/trips/${trip._id}/choices`;
+  assert.equal(
+    (
+      await call(viewer, "post", base, {
+        kind: "hotel",
+        name: "Hotel",
+        total: 200,
+      })
+    ).status,
+    403,
+  );
+  assert.equal(
+    (
+      await call(owner, "post", base, {
+        kind: "hotel",
+        name: "Hotel",
+        total: -1,
+      })
+    ).status,
+    400,
+  );
+  const r = await call(owner, "post", base, {
+    kind: "hotel",
+    name: "Mountain hotel quote",
+    total: 20000,
+  });
+  assert.equal(r.status, 201);
+  const id = r.body._id;
+  assert.equal((await call(outsider, "get", base)).status, 404);
+  assert.equal(
+    (await call(member, "post", `${base}/${id}/vote`)).body.votes.length,
+    1,
+  );
+  assert.equal(
+    (await call(member, "post", `${base}/${id}/vote`)).body.votes.length,
+    0,
+  );
+  assert.equal((await call(member, "delete", `${base}/${id}`)).status, 403);
+  assert.equal((await call(owner, "delete", `${base}/${id}`)).status, 200);
+});
+
 test("delete expense, preserve financial members and confirmed trip deletion", async () => {
   assert.equal(
     (
